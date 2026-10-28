@@ -1,0 +1,26 @@
+---
+layout: runbook
+title: 'Triage: duplicate reports'
+owner: support desk
+status: proposed
+reviewed: '2026-10-28'
+---
+
+<script>
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+</script>
+
+## Proposed rule for booking-date reports
+
+The historical subject-only rule in [decision 0001](/kb/decisions/0001-dedupe-by-subject) conflicts with the executable examples below. [Decision 0002](/kb/decisions/0002-dedupe-by-cause) proposes replacing it. Desk adoption remains pending.
+
+1. Identify tenant locale, booking form and channel; do not substitute browser locale or intake tags.
+2. Compare the supported causes using `causeOf` and `sameCause`. Subject matches help find candidates but do not establish duplicates.
+3. Read the symptoms. Keep conflicting or unknown evidence apart for investigation; two unidentified tenants are not a match.
+4. Count once per report ID. Preserve original received and merged timestamps so backlog work cannot look like new arrivals.
+
+This classifier covers the booking-date incident only. Diagnose other products with their own evidence. See [#4471 findings](/kb/incidents/4471-findings) for counts, exceptions and tickets.
+
+## Try it
+
+<DedupeExplorer />

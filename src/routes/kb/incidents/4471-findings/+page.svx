@@ -1,0 +1,38 @@
+---
+layout: runbook
+title: '#4471 · Two routing causes, unresolved symptoms'
+owner: Nick
+signature: 'v1.eyJzdWIiOiIxMTA5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNjE2MDQsImV4cCI6MTc5MzI0ODAwNH0.V_J5paeJ3rGXA__CGD1T-zQt2Z3LKFHKnzGc-wUfBIE'
+status: investigated
+reviewed: '2026-10-28'
+---
+
+<script>
+  import IncidentFindings from '#lib/kb/IncidentFindings.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+## What the export shows
+
+This page replaces the incident's “one issue, one fix queued” interpretation. It describes the KB export of 4 October 2026, not a live read of the desk. No production fix or resolution has been verified. The desk can continue receiving reports; refresh this export and recompute before using these counts as current totals.
+
+The shared parser reads month first for day-first tenants. The booking-v3 form has a separate wrong hint: it prints `MM/DD/YYYY` while interpreting input in the tenant's day-first order. Each needs its own ticket and verification. Browser locale, subject and intake tags do not determine the cause.
+
+<IncidentFindings />
+
+## Arrival is not merge activity
+
+<QueueTimeline ticket={4471} />
+
+The July merge spike includes reports received earlier. It records backlog filing, not the start of the problem or a sudden rise in affected people. Reports continued to arrive after that batch. The timeline does not prove a fix was shipped.
+
+## Triage and decisions
+
+Use [the revised triage guidance](/kb/triage/dedupe) and the executable examples there. [Decision 0002](/kb/decisions/0002-dedupe-by-cause) proposes replacing subject-only merging; the accepted decision 0001 remains an unedited historical record. Do not count reports twice, confuse routing with diagnosis, or conceal exceptions under a majority cause.
+
+## Next verification
+
+Engineering must verify the parser and form-hint fixes separately. Support should collect original input dates, invite payloads, timestamps and timezones for the flagged reports, compare new reports by cause, and review the proposed decision. This investigation has not changed the live desk or booked any production work.
+
+<RenderStamp {signature} />

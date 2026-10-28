@@ -1,0 +1,31 @@
+---
+layout: runbook
+title: '0002 · Route duplicates by cause and retain uncertainty'
+owner: Nick
+signature: 'v1.eyJzdWIiOiIxMTA5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNjE2MDQsImV4cCI6MTc5MzI0ODAwNH0.V_J5paeJ3rGXA__CGD1T-zQt2Z3LKFHKnzGc-wUfBIE'
+status: proposed
+reviewed: '2026-10-28'
+---
+
+<script>
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+## Context
+
+Decision [0001](/kb/decisions/0001-dedupe-by-subject) accepted matching normalized subjects. That historical record is preserved. The executable dedupe examples show that equal subjects can hide different causes, and different subjects can share one cause. Its old review date is also beyond the KB's review threshold; a review date alone never proves correctness.
+
+## Proposed replacement for 0001
+
+For this incident, identify the tenant, its locale and booking form, then the report channel. Use `causeOf` and `sameCause` from `src/lib/kb/causes.ts` to compare the supported routing causes. Browser locale and intake tags are clues, not tenant configuration. A subject match is a search aid, never sufficient merge evidence.
+
+Read the report body before merging. If symptoms contradict the routing model, keep the report visible for investigation. Unknown tenants or missing evidence stay apart until identified; two unknown causes are not a match. Do not merge just because the desk is busy. Apply a product-specific diagnosis for other products: this classifier only covers this booking-date incident.
+
+## Consequences
+
+The desk needs more context before merging. Separate tickets preserve different fixes and report counts; unresolved symptoms remain visible. This is a proposal for the desk to adopt, not a claim that its live workflow has already changed.
+
+<DedupeExplorer />
+
+<RenderStamp {signature} />
