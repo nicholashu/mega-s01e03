@@ -3,7 +3,7 @@ layout: runbook
 title: '#4471 · Two routing causes, unresolved symptoms'
 owner: Nick
 signature: 'v1.eyJzdWIiOiIxMTA5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNjE2MDQsImV4cCI6MTc5MzI0ODAwNH0.V_J5paeJ3rGXA__CGD1T-zQt2Z3LKFHKnzGc-wUfBIE'
-status: investigated
+status: closed
 reviewed: '2026-10-28'
 ---
 
@@ -15,9 +15,9 @@ reviewed: '2026-10-28'
 
 ## What the export shows
 
-This page replaces the incident's “one issue, one fix queued” interpretation. It describes the KB export of 4 October 2026, not a live read of the desk. No production fix or resolution has been verified. The desk can continue receiving reports; refresh this export and recompute before using these counts as current totals.
+This page replaces the incident's “one issue, one fix queued” interpretation. It describes the KB export of 4 October 2026, not a live read of the desk. The engineering update below is newer than this export. Refresh the data and recompute before using these counts as current totals; the fixes have not been independently tested here.
 
-The shared parser reads month first for day-first tenants. The booking-v3 form has a separate wrong hint: it prints `MM/DD/YYYY` while interpreting input in the tenant's day-first order. Each needs its own ticket and verification. Browser locale, subject and intake tags do not determine the cause.
+The shared parser reads month first for day-first tenants. The booking-v3 form has a separate wrong hint: it prints `MM/DD/YYYY` while interpreting input in the tenant's day-first order. These are separate problems with different engineering outcomes. Browser locale, subject and intake tags do not determine the cause.
 
 <IncidentFindings />
 
@@ -31,8 +31,13 @@ The July merge spike includes reports received earlier. It records backlog filin
 
 Use [the revised triage guidance](/kb/triage/dedupe) and the executable examples there. [Decision 0002](/kb/decisions/0002-dedupe-by-cause) proposes replacing subject-only merging; the accepted decision 0001 remains an unedited historical record. Do not count reports twice, confuse routing with diagnosis, or conceal exceptions under a majority cause.
 
-## Next verification
+## Engineering update: closed 5 October 2026
 
-Engineering must verify the parser and form-hint fixes separately. Support should collect original input dates, invite payloads, timestamps and timezones for the flagged reports, compare new reports by cause, and review the proposed decision. This investigation has not changed the live desk or booked any production work.
+The signed-in [challenge page](https://hq.mega.dev/challenges/what-it-shows) now reports that #4471 closed on 5 October. Nick supplied this update from that page after our initial submission:
+
+- **Parser — fixed:** `fix(dates): parse dd/mm for eu locales`. [Ticket 1](https://github.com/nicholashu/mega-s01e03/issues/1) closes as **completed**.
+- **Hint — won't fix:** booking-v3 form retired. [Ticket 2](https://github.com/nicholashu/mega-s01e03/issues/2) closes as **not planned**. Retirement is the reason for closure; no hint fix is claimed.
+
+These outcomes are engineering's report, not an independent runtime test. They do not explain the five flagged symptoms or change the historical export counts. Support should retain those exceptions and collect original input dates, invite payloads, timestamps and timezones if they recur. Adoption of the proposed dedupe decision remains pending.
 
 <RenderStamp {signature} />

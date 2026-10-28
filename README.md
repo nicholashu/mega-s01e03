@@ -44,6 +44,6 @@ The supplied report data and accepted decision 0001 are preserved unchanged; rev
 - [Parser ticket: 379 reports](https://github.com/nicholashu/mega-s01e03/issues/1)
 - [Hint ticket: 33 reports](https://github.com/nicholashu/mega-s01e03/issues/2)
 
-Counts describe the 4 October export. Five flagged symptoms remain unresolved within the parser routing count; no live desk change or production fix is claimed. The course signature is deliberately included in the new pages as required; private request logs are kept outside this repository.
+Counts describe the 4 October export. Five flagged symptoms remain unresolved within the parser routing count; the newer desk update reports the parser fixed and booking-v3 retired, without an independent runtime test here. The course signature is deliberately included in the new pages as required; private request logs are kept outside this repository.
 
 Build with Node.js 24 or later: `npm ci`, `npm run audit`, `npm run build`. The build compiles the actual Svelte/mdsvex pages and produces self-contained HTML in `rendered/`, including interactive dedupe examples. To browse all routes: `python3 -m http.server 4173 --directory rendered`, then open `http://localhost:4173/kb/incidents/4471-findings/`.
